@@ -131,8 +131,21 @@ void serial_enable_int(int flag)
 	return;
 }
 
-void serial_put_char(unsigned char data)
+void serial_puts(char *data)
 {
+	while (data && *data) {
+		while(SCI1.SSR.TDRE != 1) {
+			;
+		}
 
+		SCI1.TDR = *data;
+		data++;
+	}
+
+	while(SCI1.SSR.TEND != 1) {
+		;
+	}
+	
+	return;
 }
 
