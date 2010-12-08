@@ -21,14 +21,17 @@ typedef struct sci_registers {
 	unsigned char BRR;
 
 	/* Serial Control Register */
-	struct {
-		unsigned TIE    : 1;    /* Transmit (Data Empty) Interrupt Enable */
-		unsigned RIE    : 1;    /* Receive Interrupt Enable */
-		unsigned TE     : 1;    /* Transmit Enable */
-		unsigned RE     : 1;    /* Receive Enable */
-		unsigned MPIE   : 1;    /* Multi Processor Interrupt Enable */
-		unsigned TEIE   : 1;    /* Transmit End Interrupt Enable */
-		unsigned CKE    : 2;    /* Clock Enable */
+	union {
+		struct {
+			unsigned TIE    : 1;    /* Transmit (Data Empty) Interrupt Enable */
+			unsigned RIE    : 1;    /* Receive Interrupt Enable */
+			unsigned TE     : 1;    /* Transmit Enable */
+			unsigned RE     : 1;    /* Receive Enable */
+			unsigned MPIE   : 1;    /* Multi Processor Interrupt Enable */
+			unsigned TEIE   : 1;    /* Transmit End Interrupt Enable */
+			unsigned CKE    : 2;    /* Clock Enable */
+		} BIT; 	
+		unsigned char BYTE;
 	} SCR; 	
 
 	/* Transmit Data Register */
